@@ -1,3 +1,5 @@
+package v1.msg;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -8,15 +10,12 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MsgMmsAPI {
+public class MsgPushAPI {
 
     public static void main(String[] args) {
         ObjectMapper mapper = new ObjectMapper();
@@ -24,14 +23,18 @@ public class MsgMmsAPI {
 
         req.setApiKey("APIKEY");
         req.setCallback("01012341234");
-        req.setTitle("MMS 제목");
-        req.setMsg("MMS 메시지 내용");
+        req.setAppId("AppId");
+
+        PushMsgBody pushMsgBody = new PushMsgBody();
+        pushMsgBody.setTitle("string");
+        pushMsgBody.setBody("string");
+        req.setMsg(pushMsgBody);
 
         List<RecvInfo> recvInfoLst = new ArrayList<RecvInfo>();
         RecvInfo recvInfo = new RecvInfo();
         recvInfo.setCliKey("1");
         recvInfo.setPhone("01012341234");
-        recvInfo.setCountryCd("82");
+        recvInfo.setCuid("Cuid");
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("additionalProp1", "string");
         recvInfo.setMergeData(new HashMap<String, String>(hashMap));
@@ -42,7 +45,7 @@ public class MsgMmsAPI {
 
             // Request
             CloseableHttpClient client = HttpClientBuilder.create().build();
-            HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/msg/v1/mms");
+            HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/msg/v1/push");
             postReq.setHeader("Content-Type","application/json");
             postReq.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
 
@@ -56,7 +59,7 @@ public class MsgMmsAPI {
                 return;
             }
 
-            String jsonString = EntityUtils.toString(response.getEntity());
+            String jsonString = EntityUtils.toString(response.getEntity(), "UTF-8");
             MsgRes res = mapper.readValue(jsonString, MsgRes.class);
 
             if (response.getStatusLine().getStatusCode() == 200) {
@@ -106,14 +109,17 @@ public class MsgMmsAPI {
         @Pattern(regexp = "^[a-zA-Z0-9-_]{0,20}$")
         String deptCode;
 
-        //제목, 최대 40 Byte
-        String title;
-
         //메시지 내용
-        String msg;
+        PushMsgBody msg;
 
-        //파일 아이디 목록
-        List<String> fileIdLst;
+        //앱 아이디
+        String appId;
+
+        //확장 커스텀 메시지
+        HashMap<String, String> ext;
+
+        //파일 아이디
+        String fileId;
 
         //웹 요청 아이디(웹에서 요청 시 사용)
         String webReqId;
@@ -130,17 +136,15 @@ public class MsgMmsAPI {
     public static class RecvInfo {
 
         //클라이언트키
-        @NotNull
         @Pattern(regexp = "^[a-zA-Z0-9-_.@]{1,30}$")
         private String cliKey;
 
         //수신번호
-        @NotNull
         @Pattern(regexp = "^[0-9-]{1,20}$")
         private String phone;
 
-        //국가 코드
-        String countryCd;
+        //앱 로그인 시 사용되는 아이디
+        String cuid;
 
         //가변데이터
         private HashMap<String, String> mergeData;
@@ -151,7 +155,6 @@ public class MsgMmsAPI {
     public static class FbInfo {
 
         //채널
-        @NotNull
         private String ch;
 
         //제목
@@ -162,6 +165,16 @@ public class MsgMmsAPI {
 
         //파일아이디
         private String fileId;
+    }
+
+    @Data
+    public static class PushMsgBody {
+
+        //제목
+        private String title;
+
+        //내용
+        private String body;
     }
 
     /**

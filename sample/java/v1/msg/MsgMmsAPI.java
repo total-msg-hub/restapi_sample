@@ -1,3 +1,5 @@
+package v1.msg;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -8,12 +10,15 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MsgAlimtalkAPI {
+public class MsgMmsAPI {
 
     public static void main(String[] args) {
         ObjectMapper mapper = new ObjectMapper();
@@ -21,10 +26,8 @@ public class MsgAlimtalkAPI {
 
         req.setApiKey("APIKEY");
         req.setCallback("01012341234");
-
-        req.setMsg("안녕하세요, #{additionalProp1}님.테스트템플릿_부가정보형입니다.");
-        req.setSenderKey("SenderKey");
-        req.setTmpltKey("TmpltKey");
+        req.setTitle("MMS 제목");
+        req.setMsg("MMS 메시지 내용");
 
         List<RecvInfo> recvInfoLst = new ArrayList<RecvInfo>();
         RecvInfo recvInfo = new RecvInfo();
@@ -37,28 +40,11 @@ public class MsgAlimtalkAPI {
         recvInfoLst.add(recvInfo);
         req.setRecvInfoLst(recvInfoLst);
 
-        List<FbInfo> fbInfoLst = new ArrayList<FbInfo>();
-        FbInfo fbInfo = new FbInfo();
-        fbInfo.setCh("SMS");
-        fbInfo.setTitle("제목");
-        fbInfo.setMsg("SMS 대체발송");
-        fbInfoLst.add(fbInfo);
-        req.setFbInfoLst(fbInfoLst);
-
-        List<LMKakaoButton> buttons = new ArrayList<>();
-        LMKakaoButton lMKakaoButton = new LMKakaoButton();
-        lMKakaoButton.setName("웹 링크");
-        lMKakaoButton.setLinkType("WL");
-        lMKakaoButton.setLinkMo("https://");
-        lMKakaoButton.setLinkPc("https://");
-        buttons.add(lMKakaoButton);
-        req.setButtons(buttons);
-
         try {
 
             // Request
             CloseableHttpClient client = HttpClientBuilder.create().build();
-            HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/msg/v1/alimtalk");
+            HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/msg/v1/mms");
             postReq.setHeader("Content-Type","application/json");
             postReq.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
 
@@ -122,20 +108,14 @@ public class MsgAlimtalkAPI {
         @Pattern(regexp = "^[a-zA-Z0-9-_]{0,20}$")
         String deptCode;
 
-        //알림톡 강조표기 제목, 최대 50 Byte
+        //제목, 최대 40 Byte
         String title;
 
         //메시지 내용
         String msg;
 
-        //발신프로필키
-        String senderKey;
-
-        //템플릿 키
-        String tmpltKey;
-
-        //버튼리스트
-        List<LMKakaoButton> buttons = new ArrayList<>();
+        //파일 아이디 목록
+        List<String> fileIdLst;
 
         //웹 요청 아이디(웹에서 요청 시 사용)
         String webReqId;
@@ -152,10 +132,12 @@ public class MsgAlimtalkAPI {
     public static class RecvInfo {
 
         //클라이언트키
+        @NotNull
         @Pattern(regexp = "^[a-zA-Z0-9-_.@]{1,30}$")
         private String cliKey;
 
         //수신번호
+        @NotNull
         @Pattern(regexp = "^[0-9-]{1,20}$")
         private String phone;
 
@@ -171,6 +153,7 @@ public class MsgAlimtalkAPI {
     public static class FbInfo {
 
         //채널
+        @NotNull
         private String ch;
 
         //제목
@@ -181,37 +164,6 @@ public class MsgAlimtalkAPI {
 
         //파일아이디
         private String fileId;
-    }
-
-    @Data
-    public static class LMKakaoButton{
-
-        //버튼이름
-        String name;
-
-        /*"버튼타입<br>"
-        +"WL : linkMo 필수, linkPc 옵션<br>"
-        +"AL : linkIos, linkAnd, linkMo 중 2가지 필수 입력, linkPc<br>"
-        +"BK : 해당 버튼 텍스트 전송 <br>"
-        +"MD : 해당 버튼 텍스트 + 메시지 본문 전송 <br>"
-        +"BC : 상담톡 전환 <br>"
-        +"BT : 봇 전환 <br>"
-        +"DS : 메시지 내 송장번호 이용한 배송조회페이지로 연결 (quickReplies사용불가) <br>"
-        +"AC : 채널추가 -광고추가형, 복합형템플릿에서만 사용가능 -버튼단톡 또는 최상단(첫번째버튼)에만 추가가능 (quickReplies사용불가)"
-        */
-        String linkType;
-
-        //mobile 환경에서 버튼 클릭 시 이동할 url
-        String linkMo;
-
-        //pc 환경에서 버튼 클릭 시 이동할 url
-        String linkPc;
-
-        //mobile android 환경에서 버튼 클릭 시 실행할 application custom scheme
-        String linkAnd;
-
-        //mobile ios 환경에서 버튼 클릭 시 실행할 application custom scheme
-        String linkIos;
     }
 
     /**

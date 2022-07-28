@@ -1,3 +1,5 @@
+package v1.msg;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -8,15 +10,12 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MsgRcsAPI {
+public class MsgAlimtalkAPI {
 
     public static void main(String[] args) {
         ObjectMapper mapper = new ObjectMapper();
@@ -25,29 +24,43 @@ public class MsgRcsAPI {
         req.setApiKey("APIKEY");
         req.setCallback("01012341234");
 
-        req.setMessagebaseId("MessagebaseId");
-        req.setHeader("0");
-        req.setFooter("080-123-1234");
-        req.setCopyAllowed(true);
-        req.setExpiryOption("1");
-        req.setAgencyId("uplus");
+        req.setMsg("안녕하세요, #{additionalProp1}님.테스트템플릿_부가정보형입니다.");
+        req.setSenderKey("SenderKey");
+        req.setTmpltKey("TmpltKey");
 
         List<RecvInfo> recvInfoLst = new ArrayList<RecvInfo>();
         RecvInfo recvInfo = new RecvInfo();
         recvInfo.setCliKey("1");
         recvInfo.setPhone("01012341234");
+        recvInfo.setCountryCd("82");
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("additionalProp1", "string");
-        hashMap.put("description", "{{additionalProp1}} 내용");
         recvInfo.setMergeData(new HashMap<String, String>(hashMap));
         recvInfoLst.add(recvInfo);
         req.setRecvInfoLst(recvInfoLst);
+
+        List<FbInfo> fbInfoLst = new ArrayList<FbInfo>();
+        FbInfo fbInfo = new FbInfo();
+        fbInfo.setCh("SMS");
+        fbInfo.setTitle("제목");
+        fbInfo.setMsg("SMS 대체발송");
+        fbInfoLst.add(fbInfo);
+        req.setFbInfoLst(fbInfoLst);
+
+        List<LMKakaoButton> buttons = new ArrayList<>();
+        LMKakaoButton lMKakaoButton = new LMKakaoButton();
+        lMKakaoButton.setName("웹 링크");
+        lMKakaoButton.setLinkType("WL");
+        lMKakaoButton.setLinkMo("https://");
+        lMKakaoButton.setLinkPc("https://");
+        buttons.add(lMKakaoButton);
+        req.setButtons(buttons);
 
         try {
 
             // Request
             CloseableHttpClient client = HttpClientBuilder.create().build();
-            HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/msg/v1/rcs");
+            HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/msg/v1/alimtalk");
             postReq.setHeader("Content-Type","application/json");
             postReq.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
 
@@ -61,7 +74,7 @@ public class MsgRcsAPI {
                 return;
             }
 
-            String jsonString = EntityUtils.toString(response.getEntity());
+            String jsonString = EntityUtils.toString(response.getEntity(), "UTF-8");
             MsgRes res = mapper.readValue(jsonString, MsgRes.class);
 
             if (response.getStatusLine().getStatusCode() == 200) {
@@ -103,25 +116,6 @@ public class MsgRcsAPI {
         //필터그룹
         List<String> filterGrpLst = new ArrayList<>();
 
-        //메시지베이스 ID
-        String messagebaseId;
-
-        //0=정보성 메시지, 1=광고성 메시지
-        String header;
-
-        //무료수신거부 번호 (*header의 값이 광고성일 때 footer 값을 포함하지 않고 발송하면 실패 처리)
-        String footer;
-
-        //사용자의 복사/공유 허용여부
-        Boolean copyAllowed;
-
-        //expire 옵션(1:24시간, 2:30초)
-        @Pattern(regexp= "^1$|^2$")
-        String expiryOption;
-
-        //대행사 아이디
-        String agencyId;
-
         //캠페인 ID
         @Pattern(regexp = "^[a-zA-Z0-9-_]{0,20}$")
         String campaignId;
@@ -130,18 +124,29 @@ public class MsgRcsAPI {
         @Pattern(regexp = "^[a-zA-Z0-9-_]{0,20}$")
         String deptCode;
 
+        //알림톡 강조표기 제목, 최대 50 Byte
+        String title;
+
+        //메시지 내용
+        String msg;
+
+        //발신프로필키
+        String senderKey;
+
+        //템플릿 키
+        String tmpltKey;
+
         //버튼리스트
-        List<MsgAlimtalkAPI.LMKakaoButton> buttons = new ArrayList<>();
+        List<LMKakaoButton> buttons = new ArrayList<>();
+
+        //웹 요청 아이디(웹에서 요청 시 사용)
+        String webReqId;
 
         //발송정보 array
         List<RecvInfo> recvInfoLst = new ArrayList<RecvInfo>();
 
         //falback 정보 array
         List<FbInfo> fbInfoLst = new ArrayList<FbInfo>();
-
-        //웹 요청 아이디(웹에서 요청 시 사용)
-        String webReqId;
-
     }
 
     @Data
@@ -156,6 +161,9 @@ public class MsgRcsAPI {
         @Pattern(regexp = "^[0-9-]{1,20}$")
         private String phone;
 
+        //국가 코드
+        String countryCd;
+
         //가변데이터
         private HashMap<String, String> mergeData;
     }
@@ -165,7 +173,6 @@ public class MsgRcsAPI {
     public static class FbInfo {
 
         //채널
-        @NotNull
         private String ch;
 
         //제목
@@ -176,6 +183,37 @@ public class MsgRcsAPI {
 
         //파일아이디
         private String fileId;
+    }
+
+    @Data
+    public static class LMKakaoButton{
+
+        //버튼이름
+        String name;
+
+        /*"버튼타입<br>"
+        +"WL : linkMo 필수, linkPc 옵션<br>"
+        +"AL : linkIos, linkAnd, linkMo 중 2가지 필수 입력, linkPc<br>"
+        +"BK : 해당 버튼 텍스트 전송 <br>"
+        +"MD : 해당 버튼 텍스트 + 메시지 본문 전송 <br>"
+        +"BC : 상담톡 전환 <br>"
+        +"BT : 봇 전환 <br>"
+        +"DS : 메시지 내 송장번호 이용한 배송조회페이지로 연결 (quickReplies사용불가) <br>"
+        +"AC : 채널추가 -광고추가형, 복합형템플릿에서만 사용가능 -버튼단톡 또는 최상단(첫번째버튼)에만 추가가능 (quickReplies사용불가)"
+        */
+        String linkType;
+
+        //mobile 환경에서 버튼 클릭 시 이동할 url
+        String linkMo;
+
+        //pc 환경에서 버튼 클릭 시 이동할 url
+        String linkPc;
+
+        //mobile android 환경에서 버튼 클릭 시 실행할 application custom scheme
+        String linkAnd;
+
+        //mobile ios 환경에서 버튼 클릭 시 실행할 application custom scheme
+        String linkIos;
     }
 
     /**

@@ -1,3 +1,5 @@
+package v1.auth;
+
 import javax.validation.constraints.Pattern;
 
 import org.apache.http.client.methods.CloseableHttpResponse;

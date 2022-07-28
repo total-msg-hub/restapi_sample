@@ -1,3 +1,5 @@
+package v1.msg;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -8,33 +10,28 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-public class MsgSmartMsgAPI {
+public class MsgSmsAPI {
 
     public static void main(String[] args) {
         ObjectMapper mapper = new ObjectMapper();
         MsgReq req = new MsgReq();
 
         req.setApiKey("APIKEY");
-        req.setTmpltCode("TmpltKey");
+        req.setCallback("01012341234");
 
-        List<SmartRecvInfo> recvInfoLst = new ArrayList<SmartRecvInfo>();
-        SmartRecvInfo recvInfo = new SmartRecvInfo();
+        req.setMsg("SMS 메시지 내용");
+
+        List<RecvInfo> recvInfoLst = new ArrayList<RecvInfo>();
+        RecvInfo recvInfo = new RecvInfo();
         recvInfo.setCliKey("1");
         recvInfo.setPhone("01012341234");
-        recvInfo.setCuid("Cuid");
-        HashMap<String, String> hashMap1 = new HashMap<>();
-        HashMap<String, HashMap<String, String>> hashMap = new HashMap<>();
-        hashMap1.put("additionalProp1", "string");
-        hashMap.put("SMS",hashMap1);
-        recvInfo.setMergeData( new HashMap<String, HashMap<String, String>> (hashMap));
+        recvInfo.setCountryCd("82");
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("additionalProp1", "string");
+        recvInfo.setMergeData(new HashMap<String, String>(hashMap));
         recvInfoLst.add(recvInfo);
         req.setRecvInfoLst(recvInfoLst);
 
@@ -42,7 +39,7 @@ public class MsgSmartMsgAPI {
 
             // Request
             CloseableHttpClient client = HttpClientBuilder.create().build();
-            HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/msg/v1/smartMsg");
+            HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/msg/v1/sms");
             postReq.setHeader("Content-Type","application/json");
             postReq.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
 
@@ -56,7 +53,7 @@ public class MsgSmartMsgAPI {
                 return;
             }
 
-            String jsonString = EntityUtils.toString(response.getEntity());
+            String jsonString = EntityUtils.toString(response.getEntity(), "UTF-8");
             MsgRes res = mapper.readValue(jsonString, MsgRes.class);
 
             if (response.getStatusLine().getStatusCode() == 200) {
@@ -84,6 +81,10 @@ public class MsgSmartMsgAPI {
         @Pattern(regexp = "^[a-zA-Z0-9-_.]{0,20}$")
         String apiKey;
 
+        //발신번호
+        @Pattern(regexp = "^[0-9-]{0,20}$")
+        String callback;
+
         //단축URL 사용여부
         @Pattern(regexp = "^[yYnN]{1,1}$")
         String clickUrlYn = "N";
@@ -94,9 +95,6 @@ public class MsgSmartMsgAPI {
         //필터그룹
         List<String> filterGrpLst = new ArrayList<>();
 
-        //통합발송 템플릿
-        String tmpltCode;
-
         //캠페인 ID
         @Pattern(regexp = "^[a-zA-Z0-9-_]{0,20}$")
         String campaignId;
@@ -105,16 +103,25 @@ public class MsgSmartMsgAPI {
         @Pattern(regexp = "^[a-zA-Z0-9-_]{0,20}$")
         String deptCode;
 
+        //메시지 내용
+        String msg;
+
         //웹 요청 아이디(웹에서 요청 시 사용)
         String webReqId;
 
+        //국제 문자 여부
+        String interYn = "N";
+
         //발송정보 array
-        List<SmartRecvInfo> recvInfoLst = new ArrayList<SmartRecvInfo>();
+        List<RecvInfo> recvInfoLst = new ArrayList<RecvInfo>();
+
+        //falback 정보 array
+        List<FbInfo> fbInfoLst = new ArrayList<FbInfo>();
     }
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class SmartRecvInfo {
+    public static class RecvInfo {
 
         //클라이언트키
         @Pattern(regexp = "^[a-zA-Z0-9-_.@]{1,30}$")
@@ -124,11 +131,28 @@ public class MsgSmartMsgAPI {
         @Pattern(regexp = "^[0-9-]{1,20}$")
         private String phone;
 
-        //앱 로그인 시 사용되는 아이디
-        String cuid;
+        //국가 코드
+        String countryCd;
 
         //가변데이터
-        private HashMap<String, HashMap<String, String>> mergeData;
+        private HashMap<String, String> mergeData;
+    }
+
+    @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class FbInfo {
+
+        //채널
+        private String ch;
+
+        //제목
+        private String title;
+
+        //메시지
+        private String msg;
+
+        //파일아이디
+        private String fileId;
     }
 
     /**
@@ -147,7 +171,6 @@ public class MsgSmartMsgAPI {
 
         @Data
         public static class Result {
-
             // 클라이언트키: 고객사에서 부여하는 메시지 고유 키
             String cliKey;
 
@@ -162,7 +185,6 @@ public class MsgSmartMsgAPI {
 
             // 메시지 발송 결과 코드 설명
             String message;
-
         }
     }
 }
