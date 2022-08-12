@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 메시지 MMS 발송
+ */
 public class MsgMmsAPI {
 
     public static void main(String[] args) {

@@ -10,11 +10,12 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 템플릿 양식 상세조회
+ */
 public class MsgBaseFormDtlAPI {
 
     public static void main(String[] args) {
-        //템플릿 양식 상세 조회
 
         ObjectMapper mapper = new ObjectMapper();
 

@@ -12,11 +12,12 @@ import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * RCS 챗봇 등록 요청
+ */
 public class ChatbotRegAPI {
 
     public static void main(String[] args) {
-        //챗봇 등록 요청
 
         ObjectMapper mapper = new ObjectMapper();
         RcsReq req = new RcsReq();

@@ -11,11 +11,12 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 챗봇 수정 요청
+ */
 public class ChatbotModAPI {
 
     public static void main(String[] args) {
-        //챗봇 수정 요청
 
         ObjectMapper mapper = new ObjectMapper();
         RcsReq req = new RcsReq();

@@ -10,7 +10,9 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 이통사 기본 템플릿 상세 조회
+ */
 public class MsgBaseTmpDtlAPI {
 
     public static void main(String[] args) {

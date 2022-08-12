@@ -11,11 +11,13 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 템플릿 수정 요청
+ */
 public class TmplModAPI {
 
     public static void main(String[] args) {
-        //템플릿 수정 요청
+        //템플릿을 업데이트 합니다. 템플릿의 업데이트는 승인상태에 따라 처리 여부가 결정됩니다.
 
         ObjectMapper mapper = new ObjectMapper();
         RcsReq req = new RcsReq();

@@ -11,6 +11,9 @@ import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 카카오 템플릿 조회
+ */
 public class TmplGetAPI {
 
     public static void main(String[] args) {

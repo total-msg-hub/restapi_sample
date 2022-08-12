@@ -9,6 +9,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+/**
+ * 카카오 미사용 프로필 휴면 해제
+ */
 public class ChRecoverAPI {
 
     public static void main(String[] args) {

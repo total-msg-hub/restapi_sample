@@ -12,11 +12,12 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 브랜드 삭제 요청
+ */
 public class BrandDelAPI {
 
     public static void main(String[] args) {
-        //브랜드 삭제 요청
 
         ObjectMapper mapper = new ObjectMapper();
 

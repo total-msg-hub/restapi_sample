@@ -9,11 +9,12 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-
+/**
+ * RCS 템플릿 승인 요청을 취소
+ */
 public class TmplCancelAPI {
 
     public static void main(String[] args) {
-        //템플릿 승인 요청을 취소
 
         ObjectMapper mapper = new ObjectMapper();
 

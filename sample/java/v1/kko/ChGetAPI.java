@@ -9,6 +9,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+/**
+ * 카카오 채널 조회
+ */
 public class ChGetAPI {
 
     public static void main(String[] args) {

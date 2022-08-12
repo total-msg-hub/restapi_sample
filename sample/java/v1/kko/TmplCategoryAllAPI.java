@@ -9,6 +9,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import java.util.List;
 
+
+/**
+ * 카카오 템플릿 카테고리 코드 조회
+ */
 public class TmplCategoryAllAPI {
 
     public static void main(String[] args) {

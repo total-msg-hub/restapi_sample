@@ -17,6 +17,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Data;
 
+/**
+ * 이미지 사전 등록
+ */
 public class FileUploadAPI {
 
 	public static void main(String[] args) {

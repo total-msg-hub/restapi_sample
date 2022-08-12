@@ -14,6 +14,9 @@ import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 메시지 리포트 조회
+ */
 public class MsgSentAPI {
 
     public static void main(String[] args) {

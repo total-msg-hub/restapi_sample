@@ -10,11 +10,12 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 템플릿 삭제 요청
+ */
 public class TmplDelAPI {
 
     public static void main(String[] args) {
-        //템플릿 삭제 요청
 
         ObjectMapper mapper = new ObjectMapper();
 

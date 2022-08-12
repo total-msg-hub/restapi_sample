@@ -10,7 +10,9 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * MO 메시지 전달
+ */
 public class MoMsgSendAPI {
 
     public static void main(String[] args) {

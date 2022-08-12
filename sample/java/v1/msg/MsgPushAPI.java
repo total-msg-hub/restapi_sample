@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 메시지 PUSH 발송
+ */
 public class MsgPushAPI {
 
     public static void main(String[] args) {

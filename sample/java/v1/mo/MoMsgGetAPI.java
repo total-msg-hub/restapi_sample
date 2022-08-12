@@ -11,6 +11,9 @@ import org.apache.http.util.EntityUtils;
 import java.util.List;
 
 
+/**
+ * MO 메시지 조회
+ */
 public class MoMsgGetAPI {
 
     public static void main(String[] args) {

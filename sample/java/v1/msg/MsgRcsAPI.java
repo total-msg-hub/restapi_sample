@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 메시지 RCS 발송
+ */
 public class MsgRcsAPI {
 
     public static void main(String[] args) {

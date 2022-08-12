@@ -13,6 +13,10 @@ import org.apache.http.util.EntityUtils;
 import javax.validation.constraints.Pattern;
 import java.util.*;
 
+
+/**
+ * 메시지 SMS 발송
+ */
 public class MsgSmsAPI {
 
     public static void main(String[] args) {

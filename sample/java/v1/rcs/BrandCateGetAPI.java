@@ -10,11 +10,13 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 브랜드 카테고리 조회
+ */
 public class BrandCateGetAPI {
 
     public static void main(String[] args) {
-        //브랜드 등록 시 사용 가능한 카테고리 목록을 조회한다.
+        //브랜드 등록 시 사용 가능한 카테고리 목록 조회
 
         ObjectMapper mapper = new ObjectMapper();
 

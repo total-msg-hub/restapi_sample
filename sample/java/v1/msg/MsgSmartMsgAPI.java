@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 메시지 통합 메시지 발송
+ */
 public class MsgSmartMsgAPI {
 
     public static void main(String[] args) {

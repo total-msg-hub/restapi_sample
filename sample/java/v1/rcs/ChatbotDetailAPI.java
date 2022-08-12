@@ -7,15 +7,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import v1.auth.AuthAPI;
 
 import java.util.List;
 
-
+/**
+ * RCS 챗봇 상세 조회
+ */
 public class ChatbotDetailAPI {
 
     public static void main(String[] args) {
-        //챗봇 상세 조회
 
         ObjectMapper mapper = new ObjectMapper();
 

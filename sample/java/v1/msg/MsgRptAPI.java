@@ -10,6 +10,9 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
+/**
+ * 메시지 리포트 전달
+ */
 public class MsgRptAPI {
 
     public static void main(String[] args) {

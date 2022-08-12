@@ -10,11 +10,12 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 챗봇 리스트 조회
+ */
 public class ChatbotGetAPI {
 
     public static void main(String[] args) {
-        //챗봇 리스트 조회
 
         ObjectMapper mapper = new ObjectMapper();
 

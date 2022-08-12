@@ -9,6 +9,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+
+/**
+ * 카카오 채널 등록
+ */
 public class ChCreateAPI {
 
     public static void main(String[] args) {

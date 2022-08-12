@@ -12,11 +12,12 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 브랜드 등록 요청
+ */
 public class BrandRegAPI {
 
     public static void main(String[] args) {
-        //브랜드 등록 요청
 
         ObjectMapper mapper = new ObjectMapper();
         RcsReq req = new RcsReq();

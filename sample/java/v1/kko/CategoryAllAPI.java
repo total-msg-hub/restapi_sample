@@ -1,21 +1,19 @@
 package v1.kko;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import v1.auth.AuthAPI;
 
-import javax.validation.constraints.Pattern;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+
+/**
+ * 카카오 카테고리 정보 리스트
+ */
 public class CategoryAllAPI {
 
     public static void main(String[] args) {

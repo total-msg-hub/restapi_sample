@@ -10,11 +10,12 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 브랜드 상세 조회
+ */
 public class BrandDetailAPI {
 
     public static void main(String[] args) {
-        //브랜드 상세 조회
 
         ObjectMapper mapper = new ObjectMapper();
 

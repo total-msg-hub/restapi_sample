@@ -10,11 +10,13 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 템플릿 리스트 조회
+ */
 public class TmplGetAPI {
 
     public static void main(String[] args) {
-        //템플릿 리스트 조회
+        //브랜드 내에 등록된 템플릿 리스트 조회합니다.
 
         ObjectMapper mapper = new ObjectMapper();
 

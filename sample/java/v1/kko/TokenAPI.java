@@ -9,6 +9,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+/**
+ * 카카오 인증 토큰 요청
+ */
 public class TokenAPI {
 
     public static void main(String[] args) {

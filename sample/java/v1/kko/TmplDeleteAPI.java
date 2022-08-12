@@ -9,6 +9,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+
+/**
+ * 카카오 템플릿 삭제
+ */
 public class TmplDeleteAPI {
 
     public static void main(String[] args) {

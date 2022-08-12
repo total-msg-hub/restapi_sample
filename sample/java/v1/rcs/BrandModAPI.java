@@ -14,11 +14,12 @@ import v1.msg.MsgAlimtalkAPI;
 import java.awt.*;
 import java.util.List;
 
-
+/**
+ * RCS 브랜드 수정 요청
+ */
 public class BrandModAPI {
 
     public static void main(String[] args) {
-        //브랜드 수정 요청
 
         ObjectMapper mapper = new ObjectMapper();
         RcsReq req = new RcsReq();

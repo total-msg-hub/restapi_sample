@@ -7,15 +7,16 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import v1.auth.AuthAPI;
 
 import java.util.List;
 
-
+/**
+ * RCS 템플릿 상세 조회
+ */
 public class TmplDetailAPI {
 
     public static void main(String[] args) {
-        //템플릿 상세 조회
+        //브랜드 내에 등록된 템플릿 상세 조회합니다.
 
         ObjectMapper mapper = new ObjectMapper();
 

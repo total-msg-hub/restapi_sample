@@ -10,11 +10,12 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.List;
 
-
+/**
+ * RCS 챗봇 삭제 요청
+ */
 public class ChatbotDelAPI {
 
     public static void main(String[] args) {
-        //챗봇 삭제 요청
 
         ObjectMapper mapper = new ObjectMapper();
 

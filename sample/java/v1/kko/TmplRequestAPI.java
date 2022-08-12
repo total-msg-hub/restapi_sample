@@ -10,6 +10,9 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 
+/**
+ * 카카오 템플릿 검수 요청
+ */
 public class TmplRequestAPI {
 
     public static void main(String[] args) {

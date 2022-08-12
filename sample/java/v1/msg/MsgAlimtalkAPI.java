@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 메시지 카카오 알림톡 발송
+ */
 public class MsgAlimtalkAPI {
 
     public static void main(String[] args) {
