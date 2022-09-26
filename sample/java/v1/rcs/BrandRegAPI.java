@@ -38,7 +38,7 @@ public class BrandRegAPI {
             HttpPost httpPost = new HttpPost("https://api.msghub.uplus.co.kr/rcs/v1/brand/");
             httpPost.setHeader("Content-Type","application/json");
 
-            httpPost.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
+            httpPost.setHeader("Authorization", "Bearer " + "YOUR_TOKEN"); // 인증 토큰
             httpPost.setHeader("apiId", apiId);
             httpPost.setHeader("apiSecret", apiSecret);
 

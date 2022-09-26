@@ -35,7 +35,7 @@ public class FileUploadAPI {
 			// Request
 			CloseableHttpClient client = HttpClientBuilder.create().build();
 			HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/file/v1/"+ ch);
-			postReq.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
+			postReq.setHeader("Authorization", "Bearer " + "YOUR_TOKEN"); // 인증 토큰
 
 			HttpEntity entity = MultipartEntityBuilder.create()
 					.addTextBody("reqFile", mapper.writeValueAsString(req))

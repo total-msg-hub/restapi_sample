@@ -30,7 +30,7 @@ public class TmplDelAPI {
             CloseableHttpClient client = HttpClientBuilder.create().build();
             HttpDelete httpDel = new HttpDelete("https://api.msghub.uplus.co.kr/rcs/v1/brand/"+brandId+"/messagebase/"+messagebaseId);
             httpDel.setHeader("Content-Type","application/json");
-            httpDel.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
+            httpDel.setHeader("Authorization", "Bearer " + "YOUR_TOKEN"); // 인증 토큰
 
             // Response
             CloseableHttpResponse response = client.execute(httpDel);

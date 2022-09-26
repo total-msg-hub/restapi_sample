@@ -41,7 +41,7 @@ public class ChatbotRegAPI {
             CloseableHttpClient client = HttpClientBuilder.create().build();
             HttpPost httpPost = new HttpPost("https://api.msghub.uplus.co.kr/rcs/v1/brand/"+brandId+"/chatbot");
             httpPost.setHeader("Content-Type","application/json");
-            httpPost.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
+            httpPost.setHeader("Authorization", "Bearer " + "YOUR_TOKEN"); // 인증 토큰
 
             StringEntity entity = new StringEntity(mapper.writeValueAsString(req),"UTF-8");
             httpPost.setEntity(entity);

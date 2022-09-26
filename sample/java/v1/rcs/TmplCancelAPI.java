@@ -29,7 +29,7 @@ public class TmplCancelAPI {
             CloseableHttpClient client = HttpClientBuilder.create().build();
             HttpPut httpPut = new HttpPut("https://api.msghub.uplus.co.kr/rcs/v1/brand/"+brandId+"/messagebase/"+messagebaseId+"/cancel");
             httpPut.setHeader("Content-Type","application/json");
-            httpPut.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
+            httpPut.setHeader("Authorization", "Bearer " + "YOUR_TOKEN"); // 인증 토큰
 
             // Response
             CloseableHttpResponse response = client.execute(httpPut);

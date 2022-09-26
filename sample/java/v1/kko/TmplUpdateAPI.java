@@ -50,7 +50,7 @@ public class TmplUpdateAPI {
             CloseableHttpClient client = HttpClientBuilder.create().build();
             HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/kko/v1/senderkey/template/update");
             postReq.setHeader("Content-Type","application/json");
-            postReq.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
+            postReq.setHeader("Authorization", "Bearer " + "YOUR_TOKEN"); // 인증 토큰
 
             StringEntity entity = new StringEntity(mapper.writeValueAsString(req),"UTF-8");
             postReq.setEntity(entity);

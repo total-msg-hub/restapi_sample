@@ -34,7 +34,7 @@ public class BrandGetAPI {
             HttpGet httpGet = new HttpGet("https://api.msghub.uplus.co.kr/rcs/v1/brand");
             httpGet.setHeader("Content-Type","application/json");
 
-            httpGet.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
+            httpGet.setHeader("Authorization", "Bearer " + "YOUR_TOKEN"); // 인증 토큰
             httpGet.setHeader("apiId", apiId);
             httpGet.setHeader("apiSecret", apiSecret);
 

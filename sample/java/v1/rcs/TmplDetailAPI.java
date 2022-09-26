@@ -37,7 +37,7 @@ public class TmplDetailAPI {
             HttpGet httpGet = new HttpGet("https://api.msghub.uplus.co.kr/rcs/v1/brand/"+brandId+"/messagebase/"+messagebaseId);
             httpGet.setHeader("Content-Type","application/json");
 
-            httpGet.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
+            httpGet.setHeader("Authorization", "Bearer " + "YOUR_TOKEN"); // 인증 토큰
             httpGet.setHeader("apiId", apiId);
             httpGet.setHeader("apiSecret", apiSecret);
             httpGet.setHeader("brandKey", brandKey);

@@ -35,7 +35,7 @@ public class MsgSentAPI {
             CloseableHttpClient client = HttpClientBuilder.create().build();
             HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/msg/v1/sent");
             postReq.setHeader("Content-Type","application/json");
-            postReq.setHeader("Authorization", "YOUR_TOKEN"); // 인증 토큰
+            postReq.setHeader("Authorization", "Bearer " + "YOUR_TOKEN"); // 인증 토큰
 
             StringEntity entity = new StringEntity(mapper.writeValueAsString(req),"UTF-8");
             postReq.setEntity(entity);
