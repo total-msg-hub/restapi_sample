@@ -1,6 +1,7 @@
 package v1.file;
 
 import java.io.File;
+import java.nio.charset.Charset;
 
 import javax.validation.constraints.Pattern;
 
@@ -37,8 +38,8 @@ public class FileUploadAPI {
 			HttpPost postReq = new HttpPost("https://api.msghub.uplus.co.kr/file/v1/"+ ch);
 			postReq.setHeader("Authorization", "Bearer " + "YOUR_TOKEN"); // 인증 토큰
 
-			HttpEntity entity = MultipartEntityBuilder.create()
-					.addTextBody("reqFile", mapper.writeValueAsString(req))
+			HttpEntity entity = MultipartEntityBuilder.create().setCharset(Charset.forName("UTF-8"))
+					.addTextBody("reqFile", mapper.writeValueAsString(req), ContentType.MULTIPART_FORM_DATA.withCharset("UTF-8"))
 					.addBinaryBody("filePart", new File("C:\\abc.jpg"), ContentType.MULTIPART_FORM_DATA, "abc.jpg").build();
 
 			postReq.setEntity(entity);
