@@ -40,13 +40,23 @@ public class MsgMmsMultipartAPI {
 
         List<RecvInfo> recvInfoLst = new ArrayList<RecvInfo>();
         RecvInfo recvInfo = new RecvInfo();
-        recvInfo.setCliKey("1");
+        recvInfo.setCliKey("cliKey");
         recvInfo.setPhone("01012341234");
         recvInfo.setCountryCd("82");
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("additionalProp1", "string");
         recvInfo.setMergeData(new HashMap<String, String>(hashMap));
         recvInfoLst.add(recvInfo);
+
+        RecvInfo recvInfo2 = new RecvInfo();
+        recvInfo2.setCliKey("cliKey2"); //CliKey 중복시 다건 발송 x
+        recvInfo2.setPhone("01012341234");
+        recvInfo2.setCountryCd("82");
+        HashMap<String, String> hashMap2 = new HashMap<>();
+        hashMap2.put("additionalProp1", "string");
+        recvInfo2.setMergeData(new HashMap<String, String>(hashMap));
+        recvInfoLst.add(recvInfo2);
+
         req.setRecvInfoLst(recvInfoLst);
 
         String DATA_DIRECTORY = "파일디렉토리";
