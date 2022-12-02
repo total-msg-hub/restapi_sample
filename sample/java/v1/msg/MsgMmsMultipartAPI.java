@@ -59,7 +59,9 @@ public class MsgMmsMultipartAPI {
 
         req.setRecvInfoLst(recvInfoLst);
 
-        String DATA_DIRECTORY = "파일디렉토리";
+        String IMG_FILE_PATH1 = "파일1 path";
+        String IMG_FILE_PATH2 = "파일2 path";
+        String IMG_FILE_PATH3 = "파일3 path";
 
         try {
 
@@ -70,7 +72,10 @@ public class MsgMmsMultipartAPI {
 
             HttpEntity entity = MultipartEntityBuilder.create().setCharset(Charset.forName("UTF-8"))
                     .addPart("reqMsg", new StringBody(mapper.writeValueAsString(req),Charset.forName("UTF-8")))
-                    .addBinaryBody("parts", new File(DATA_DIRECTORY), ContentType.MULTIPART_FORM_DATA, "image.jpg").build();
+                    .addBinaryBody("parts", new File(IMG_FILE_PATH1), ContentType.MULTIPART_FORM_DATA, "image1.jpg")
+                    .addBinaryBody("parts", new File(IMG_FILE_PATH2), ContentType.MULTIPART_FORM_DATA, "image2.jpg")
+                    .addBinaryBody("parts", new File(IMG_FILE_PATH3), ContentType.MULTIPART_FORM_DATA, "image3.jpg")
+                    .build();
 
             postReq.setEntity(entity);
 
